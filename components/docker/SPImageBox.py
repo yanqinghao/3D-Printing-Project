@@ -14,8 +14,8 @@ from arguments import Images
 @app.input(Images(key="inputImage"))
 @app.input(Folder(key="inputData"))
 @app.param(ListOfInt(key="xy", default=[10, 10]))
-@app.param(Int(key="x", default=200))
-@app.param(Int(key="y", default=200))
+@app.param(Int(key="x"))
+@app.param(Int(key="y"))
 @app.output(Images(key="outputImage"))
 def SPImageBox(context):
     args = context.args
