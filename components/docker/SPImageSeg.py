@@ -2,13 +2,11 @@
 from __future__ import absolute_import, print_function
 
 import os
-import json
 import math
 from suanpan.app import app
 from suanpan.app.arguments import Int
-from suanpan.log import logger
-from suanpan.utils import image
 from suanpan.storage import storage
+from suanpan.utils import image
 from arguments import Images
 
 
@@ -19,8 +17,6 @@ from arguments import Images
 def SPImageSeg(context):
     args = context.args
     images = args.inputImage
-
-    outputData = []
 
     for idx, img in enumerate(images):
         splitX, splitY = (
@@ -40,19 +36,15 @@ def SPImageSeg(context):
                     + str(i)
                     + ".png"
                 )
-                outputData.append(
-                    (
-                        filename,
-                        img[
-                            n * args.y : (n + 1) * args.y,
-                            m * args.x : (m + 1) * args.x,
-                            :,
-                        ],
-                    )
+                image.save(
+                    os.path.join(args.outputImage, filename,),
+                    img[
+                        n * args.y : (n + 1) * args.y, m * args.x : (m + 1) * args.x, :,
+                    ],
                 )
                 i += 1
 
-    return outputData
+    return args.outputImage
 
 
 if __name__ == "__main__":
