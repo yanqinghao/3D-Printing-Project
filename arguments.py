@@ -35,9 +35,7 @@ class ImageLoader(object):
         return imageArr
 
     def loader(self, path):
-        with open(path, "rb") as f:
-            img = Image.open(f)
-            return np.asarray(img.convert("RGB"))
+        return image.read(path)
 
     def find_all_images(self, folder):
         files_ = []
