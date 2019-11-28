@@ -13,7 +13,7 @@ from arguments import Images
 
 @app.input(Images(key="inputImage"))
 @app.input(Folder(key="inputData"))
-@app.param(ListOfInt(key="xy", default=[10, 10]))
+@app.param(ListOfInt(key="xy", default=[0, 0]))
 @app.param(Int(key="x"))
 @app.param(Int(key="y"))
 @app.output(Images(key="outputImage"))
