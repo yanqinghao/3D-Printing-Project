@@ -28,7 +28,7 @@ RUN pip install --upgrade pip
 
 COPY --from=builder /build /workspace
 
-RUN pip install -r requirements.txt
+RUN pip install cython && pip install -r requirements.txt
 
 ENTRYPOINT [ "/sbin/my_init", "--" ]
 
