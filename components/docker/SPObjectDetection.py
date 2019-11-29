@@ -47,7 +47,9 @@ def SPObjectDetection(context):
     sess = tf.Session()
     FLAGS = {}
     FLAGS["model_dir"] = "./model"
-    FLAGS["pipeline_config_path"] = args.model_config + "/ssd_mobilenet_v1_coco.config"
+    FLAGS["pipeline_config_path"] = os.path.join(
+        args.model_config, "ssd_mobilenet_v1_coco.config"
+    )
     FLAGS["num_train_steps"] = args.num_train_steps
     FLAGS["eval_training_data"] = False
     FLAGS["sample_1_of_n_eval_examples"] = 1
@@ -125,12 +127,17 @@ def SPObjectDetection(context):
     exporter.export_inference_graph(
         FLAGS["input_type"],
         pipeline_config,
-        FLAGS["trained_checkpoint_prefix"]
-        + "/model.ckpt-"
-        + str(FLAGS["num_train_steps"]),
+        os.path.join(
+            FLAGS["trained_checkpoint_prefix"],
+            "model.ckpt-" + str(FLAGS["num_train_steps"]),
+        ),
         FLAGS["output_directory"],
         input_shape=input_shape,
         write_inference_graph=FLAGS["write_inference_graph"],
+    )
+    P.copy(
+        os.path.join("./data", "nozzle_label_map.pbtxt"),
+        os.path.join(FLAGS["output_directory"], "nozzle_label_map.pbtxt"),
     )
     return args.model
 
