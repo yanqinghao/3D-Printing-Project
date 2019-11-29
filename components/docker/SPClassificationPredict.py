@@ -18,7 +18,8 @@ def SPClassificationPredict(context):
     predictions = []
     with tf.Graph().as_default():
         for image in get_image(predict_image):
-            predictions.append(args.model.predict(image, args.model.model_dir))
+            labelnum = args.model.predict(image, args.model.model_dir)
+            predictions.append(list(args.model.label_map.keys())[labelnum])
 
     return predictions
 
