@@ -153,9 +153,13 @@ class TFModel(BaseModel):
     def evaluate(self, eval_dir, logs_dir):
         eval_image, eval_label = get_file(eval_dir, self.label_map)
         predictions = []
+        i = 0
         with tf.Graph().as_default():
             for image in get_image(eval_image):
                 predictions.append(self.predict(image, self.model_dir))
+                if i % 100 == 0:
+                    logger.info("eval process {}".format(i))
+                i += 1
         eval_txt = open(os.path.join(logs_dir, "D3W3S7_test.txt"), "a")
         for label, num in self.label_map.items():
             eval_txt.write(
