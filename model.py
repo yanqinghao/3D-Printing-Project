@@ -13,6 +13,7 @@ from utils.model import inference, losses, trainning, evaluation
 class TFModel(BaseModel):
     def __init__(self):
         super(TFModel, self).__init__()
+        os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"  # 指定第一块GPU可用
         self.model_init = False
         self.label_map = {
             "dot_bulge": 0,
