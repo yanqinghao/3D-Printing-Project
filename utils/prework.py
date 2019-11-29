@@ -107,3 +107,12 @@ def get_predict_file(file_dir):
     image_list = np.hstack((*images,))
 
     return image_list
+
+
+def get_od_image(image_list):
+    for image_path in image_list:
+        image = Image.open(image_path)
+        (im_width, im_height) = image.size
+        yield np.array(image.getdata()).reshape((im_height, im_width, 3)).astype(
+            np.uint8
+        )
